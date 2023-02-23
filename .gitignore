@@ -1,0 +1,17 @@
+*.csproj*
+*.sln
+.vsconfig
+/Library/
+/Logs/
+/obj/
+/Temp/
+/UserSettings/
+/Videos/*.mkv
+
+!README.md
+!README.md.meta
+!.gitignore
+!/Assets/**
+!/Packages/*
+!/ProjectSettings/*
+
