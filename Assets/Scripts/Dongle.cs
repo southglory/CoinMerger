@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Dongle : MonoBehaviour
 {
@@ -101,7 +102,7 @@ public class Dongle : MonoBehaviour
         }
         isAttach = true;
         manager.SfxPlay(GameManager.Sfx.Attach);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         isAttach = false;
     }
 
@@ -111,21 +112,42 @@ public class Dongle : MonoBehaviour
         {
             Dongle other = collision.gameObject.GetComponent<Dongle>();
             
-            if(level == other.level && !isMerge && !other.isMerge && level < 6)
+            if(level == other.level && !isMerge && !other.isMerge)
             {
-                // 나와 상대편 위치 가져오기
-                float meX = transform.position.x;
-                float meY = transform.position.y;
-                float otherX = other.transform.position.x;
-                float otherY = other.transform.position.y;
-                // 1. 내가 아래에 있을 때
-                // 2. 동일한 높이일 때, 내가 오른쪽에 있을 때
-                if (meY < otherY || (meY == otherY && meX > otherX))
+                if (level < 6)
                 {
-                    //상대방은 숨기기
-                    other.Hide(transform.position);
-                    //나는 레벨업
-                    LevelUp();
+                    // 나와 상대편 위치 가져오기
+                    float meX = transform.position.x;
+                    float meY = transform.position.y;
+                    float otherX = other.transform.position.x;
+                    float otherY = other.transform.position.y;
+                    // 1. 내가 아래에 있을 때
+                    // 2. 동일한 높이일 때, 내가 오른쪽에 있을 때
+                    if (meY < otherY || (meY == otherY && meX > otherX))
+                    {
+                        //상대방은 숨기기
+                        other.Hide(transform.position);
+                        //나는 레벨업
+                        LevelUp();
+                    }
+                }
+                if (level == 6)
+                {
+                    print("lv6 evnt");
+                    // 나와 상대편 위치 가져오기
+                    float meX = transform.position.x;
+                    float meY = transform.position.y;
+                    float otherX = other.transform.position.x;
+                    float otherY = other.transform.position.y;
+                    // 1. 내가 아래에 있을 때
+                    // 2. 동일한 높이일 때, 내가 오른쪽에 있을 때
+                    if (meY < otherY || (meY == otherY && meX > otherX))
+                    {
+                        //상대방은 숨기기
+                        other.Hide(transform.position);
+                        //나는 최대레벨업.
+                        LevelMaxUp();
+                    }
                 }
             }
         
@@ -168,8 +190,14 @@ public class Dongle : MonoBehaviour
 
         manager.score += (int)Mathf.Pow(2, level);
 
+        if (level == 6)
+        {
+            manager.score += 100;//최대 레벨 보너스.
+        }
+
         isMerge = false;
         gameObject.SetActive(false);
+
     }
 
     void LevelUp()
@@ -197,6 +225,29 @@ public class Dongle : MonoBehaviour
 
         isMerge = false;
     }
+    void LevelMaxUp()
+    {
+        isMerge = true;
+
+        rigid.velocity = Vector2.zero;
+        rigid.angularVelocity = 0;
+
+        StartCoroutine(LevelMaxUpRoutine());
+    }
+
+    IEnumerator LevelMaxUpRoutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        EffectPlay();
+        manager.SfxPlay(GameManager.Sfx.LevelUp);
+
+        yield return new WaitForSeconds(0.3f);
+
+        isMerge = false;
+        gameObject.SetActive(false);
+    }
+
 
     void OnTriggerStay2D(Collider2D collision)
     {

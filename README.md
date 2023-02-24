@@ -8,3 +8,7 @@ I made my own dot sprite essets, the 'CoinFamily', and used them into this game,
 
 [20230223] Preparing essets, Setting Andriod-building environment, Camera, background image, 2D-collider, and Respawning Animation.  
 [20230224] Sound(BGM, SFX), GameOver condition, and ObjectPooling.  
+[20230224] Complete, distribute.  
+
+## Download Link  
+https://drive.google.com/file/d/1-Cyy8ba69aC5zyJ-by0RjfYthjEI2aEH/view  
