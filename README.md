@@ -10,5 +10,10 @@ I made my own dot sprite essets, the 'CoinFamily', and used them into this game,
 [20230224] Sound(BGM, SFX), GameOver condition, and ObjectPooling.  
 [20230224] Complete, distribute.  
 
-## Download Link  
-https://drive.google.com/file/d/1-Cyy8ba69aC5zyJ-by0RjfYthjEI2aEH/view  
+## Play Link  
+(WebGL html) https://ramyun.itch.io/coinfeeding  
+Fixed pixels 720x1520  
+
+## Download Link
+(Android apk) https://drive.google.com/file/d/1-Cyy8ba69aC5zyJ-by0RjfYthjEI2aEH/view  
+Aspect ratio 9:19  
